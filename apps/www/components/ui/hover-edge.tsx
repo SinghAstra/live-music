@@ -61,7 +61,7 @@ const HoverEdge = React.forwardRef<HTMLSpanElement, HoverEdgeProps>(
     return (
       <span
         ref={ref}
-        className={cn("relative inline-flex group/underline", className)}
+        className={cn("relative inline-flex group/underline cursor-pointer", className)}
         {...props}
       >
         {children}

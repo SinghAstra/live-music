@@ -13,28 +13,13 @@ import fs from "fs/promises";
 
 import "highlight.js/styles/vs2015.css";
 import { Steps, Step } from "./steps";
+import { extractText } from "@/lib/utils";
+import { demos } from "../demos";
 
 interface MarkdownRendererProps {
   content: string;
 }
 
-const extractText = (node: React.ReactNode): string => {
-  if (typeof node === "string") return node;
-  if (typeof node === "number") return String(node);
-  if (Array.isArray(node)) return node.map(extractText).join("");
-
-  if (React.isValidElement(node)) {
-    const element = node as React.ReactElement<{ children?: React.ReactNode }>;
-    return extractText(element.props.children);
-  }
-
-  return "";
-};
-
-
-const demos = {
-  "hover-edge-demo": <HoverEdgeDemo />,
-};
 
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
