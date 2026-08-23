@@ -5,11 +5,14 @@ import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import Link from "next/link";
 import { CopyButton } from "./copy-button";
-import { ComponentPreview } from "./component-preview";
+import { ComponentPreview as ClientComponentPreview } from "./component-preview";
 import { InstallationTabs } from "./installation-tabs";
+import { HoverEdgeDemo } from "@/components/demos/hover-edge-demo";
+import path from "path";
+import fs from "fs/promises";
 
 import "highlight.js/styles/vs2015.css";
-import { Steps,Step } from "./steps";
+import { Steps, Step } from "./steps";
 
 interface MarkdownRendererProps {
   content: string;
@@ -28,6 +31,11 @@ const extractText = (node: React.ReactNode): string => {
   return "";
 };
 
+
+const demos = {
+  "hover-edge-demo": <HoverEdgeDemo />,
+};
+
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <div className="w-full max-w-none pb-24">
@@ -40,11 +48,39 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           },
         }}
         components={{
-          ComponentPreview,
+          HoverEdgeDemo,
+          ComponentPreview: async ({ name, preview }) => {
+            let rawCode = "";
+            try {
+              const filePath = path.join(
+                process.cwd(),
+                "components/demos",
+                `${name}.tsx`,
+              );
+              rawCode = await fs.readFile(filePath, "utf-8");
+            } catch (error) {
+              rawCode = "// Demo file not found";
+            }
+
+            const PreviewComponent = demos[name as keyof typeof demos] || <div>Demo not found</div>;
+
+            return (
+              <ClientComponentPreview
+                preview={PreviewComponent}
+                code={
+                    <pre className="overflow-x-auto text-[13px] leading-relaxed p-4 w-full h-full">
+                      <code className="language-tsx bg-transparent!">
+                        {rawCode.trim()}
+                      </code>
+                    </pre>
+                }
+              />
+            );
+          },
           InstallationTabs,
           Steps,
           Step,
-          
+
           h1: ({ children, ...props }) => (
             <h1
               {...props}
@@ -146,11 +182,13 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                   <span className="text-xs font-mono text-muted-foreground font-medium">
                     {language}
                   </span>
-                  
+
                   <CopyButton text={rawText} />
-                  
                 </div>
-                <pre className="overflow-x-auto text-[13px] leading-relaxed" {...props}>
+                <pre
+                  className="overflow-x-auto text-[13px] leading-relaxed"
+                  {...props}
+                >
                   {children}
                 </pre>
               </div>

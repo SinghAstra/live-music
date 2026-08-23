@@ -28,8 +28,13 @@ export function ComponentPreview({
       setIsCopied(true);
       setTimeout(() => setIsCopied(false), 2000);
     }
+    
   };
 
+  console.log("preview is ",preview)
+  console.log("code is ",code)
+
+  
   return (
     <Tabs
       defaultValue="preview"

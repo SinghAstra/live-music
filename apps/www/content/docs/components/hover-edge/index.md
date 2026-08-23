@@ -3,20 +3,7 @@
 
 An animated edge effect component that draws a smooth line along any side of its content on hover or focus.
 
-<ComponentPreview 
-  preview={<HoverEdgeDemo />} 
-  code={
-    <pre><code className="language-tsx">{`import { HoverEdge } from "@/components/ui/hover-edge"
-
-export function HoverEdgeDemo() {
-  return (
-    <HoverEdge side="bottom" thickness={2}>
-      Hover over me
-    </HoverEdge>
-  )
-}`}</code></pre>
-  } 
-/>
+<ComponentPreview name="hover-edge-demo" preview={<HoverEdgeDemo />} />
 
 ## Installation
 

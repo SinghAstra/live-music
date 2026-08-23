@@ -24,7 +24,7 @@ export default function DocsLayout({ children }: DocsLayoutProps) {
 
   return (
     <div className="flex h-screen flex-col overflow-hidden bg-background selection:bg-muted">
-      <header className="z-50 flex h-14 shrink-0 items-center gap-4 px-4 md:px-6 border-b md:border-b-0">
+      <header className="z-50 flex h-14 shrink-0 items-center gap-4 px-4 md:px-6">
         <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
           <SheetTrigger className="md:hidden flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary">
             <Menu className="h-5 w-5" />
