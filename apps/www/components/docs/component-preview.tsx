@@ -34,7 +34,7 @@ export function ComponentPreview({
   console.log("preview is ",preview)
   console.log("code is ",code)
 
-  
+
   return (
     <Tabs
       defaultValue="preview"
@@ -85,7 +85,7 @@ export function ComponentPreview({
       
       <TabsContent 
         value="code" 
-        className="mt-1 flex min-h-87.5 max-h-125 w-full overflow-auto rounded-xl border bg-muted/30"
+        className="mt-1 flex min-h-fit max-h-125 w-full overflow-auto rounded-xl border bg-muted/30"
       >
         <div className="w-full [&>pre]:m-0 [&>pre]:rounded-none [&>pre]:border-none [&>div]:m-0 [&>div]:rounded-none [&>div]:border-none">
           {code}

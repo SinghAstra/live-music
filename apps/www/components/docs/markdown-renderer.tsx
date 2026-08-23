@@ -10,7 +10,7 @@ import { InstallationTabs } from "./installation-tabs";
 import { HoverEdgeDemo } from "@/components/demos/hover-edge-demo";
 import path from "path";
 import fs from "fs/promises";
-
+import hljs from "highlight.js";
 import "highlight.js/styles/vs2015.css";
 import { Steps, Step } from "./steps";
 import { extractText } from "@/lib/utils";
@@ -48,15 +48,17 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             }
 
             const PreviewComponent = demos[name as keyof typeof demos] || <div>Demo not found</div>;
+            const highlightedCode = hljs.highlightAuto(rawCode.trim()).value;
 
             return (
               <ClientComponentPreview
                 preview={PreviewComponent}
                 code={
                     <pre className="overflow-x-auto text-[13px] leading-relaxed p-4 w-full h-full">
-                      <code className="language-tsx bg-transparent!">
-                        {rawCode.trim()}
-                      </code>
+                     <code 
+                        className="hljs bg-transparent!"
+                        dangerouslySetInnerHTML={{ __html: highlightedCode }} 
+                      />
                     </pre>
                 }
               />
