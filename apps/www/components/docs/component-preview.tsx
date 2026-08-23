@@ -36,16 +36,16 @@ export function ComponentPreview({
       className={cn("relative my-6 w-full flex flex-col", className)}
     >
       <div className="flex w-full items-center justify-between">
-        <TabsList className="rounded-none bg-transparent p-0">
+        <TabsList className="rounded-none bg-transparent! p-0">
           <TabsTrigger
             value="preview"
-            className="relative cursor-pointer rounded-none p-2 text-muted-foreground"
+            className="relative cursor-pointer rounded-none p-2 text-muted-foreground data-active:bg-transparent! data-active:shadow-none! data-active:text-foreground"
           >
             Preview
           </TabsTrigger>
           <TabsTrigger
             value="code"
-            className="relative cursor-pointer rounded-none p-2 text-muted-foreground"
+            className="relative cursor-pointer rounded-none p-2 text-muted-foreground data-active:bg-transparent! data-active:shadow-none! data-active:text-foreground"
           >
             Code
           </TabsTrigger>
